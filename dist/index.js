@@ -1,7 +1,5 @@
 import { PrivateKey, PublicKey } from "@hashgraph/sdk";
 import axios from "axios";
-//@ts-ignore
-import stringify from "json-stringify-deterministic";
 import { Buffer } from "buffer";
 export class ServerUtil {
     domainUrl;
@@ -65,14 +63,13 @@ export class ServerUtil {
             data: data,
         };
         const serverSig = Buffer.from(this.privateKey.sign(this.getDeterministicObjBuffer(payload))).toString("base64");
-        console.log({ serverSig });
         return {
             payload,
             serverSig,
         };
     }
     getDeterministicObjBuffer(payload) {
-        let payloadForServerSig = Buffer.from(stringify(payload));
+        let payloadForServerSig = Buffer.from(JSON.stringify(payload));
         return payloadForServerSig;
     }
     /**
@@ -84,7 +81,6 @@ export class ServerUtil {
     verifyPayloadSig(userPubKey, signedPayload, userSignature) {
         if (!userPubKey || !signedPayload || !userSignature)
             throw new Error("invalid params");
-        console.log(userPubKey, signedPayload, userSignature);
         const hasServerSigned = this.publicKey.verify(this.getDeterministicObjBuffer(signedPayload.originalPayload), Buffer.from(signedPayload.serverSignature, "base64"));
         console.log({ hasServerSigned });
         if (!hasServerSigned)
