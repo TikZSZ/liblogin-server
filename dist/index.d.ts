@@ -1,6 +1,7 @@
+/// <reference types="node" />
 import { PrivateKey } from "@hashgraph/sdk";
 import stringify from "json-stringify-deterministic";
-export declare type Network = "mainnet" | "testnet";
+import { Buffer } from "buffer";
 /**
  * deterministic version of json.stringify
  */
@@ -47,7 +48,7 @@ export declare class ServerUtil<T extends object | string> {
         };
         serverSig: string;
     };
-    private getDeterministicObjBuffer;
+    getDeterministicObjBuffer(payload: object): Buffer;
     /**
      * @param userPubKey as received from mirror node
      * @param signedPayload Signed Object as returned from hashconnect.authenticate method
