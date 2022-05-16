@@ -6,7 +6,7 @@
 
 ### `For use on server side only!!`
 
-###`ServerUtilClass`
+### `ServerUtilClass`
 
 ```typescript
 export class ServerUtil<T extends object | string> {

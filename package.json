@@ -28,5 +28,6 @@
     "authentication",
     "hedera",
     "hashconnect"
-  ]
+  ],
+  "description": "Server side package for liblogin and hashconnect"
 }
