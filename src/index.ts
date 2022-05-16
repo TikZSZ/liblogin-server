@@ -1,11 +1,13 @@
 import { PrivateKey, PublicKey } from "@hashgraph/sdk";
 import axios from "axios";
-//@ts-ignore
 import stringify from "json-stringify-deterministic";
 import { Buffer } from "buffer";
 
-export type Network = "mainnet" | "testnet";
 
+/**
+ * deterministic version of json.stringify
+ */
+export {stringify}
 export interface SignedPayload<T extends object | string = any> {
   serverSignature: string;
   originalPayload: {
@@ -95,8 +97,8 @@ export class ServerUtil<T extends object | string> {
     };
   }
 
-  private getDeterministicObjBuffer(payload: object) {
-    let payloadForServerSig = Buffer.from(JSON.stringify(payload));
+  public getDeterministicObjBuffer(payload: object) {
+    let payloadForServerSig = Buffer.from(stringify(payload));
     return payloadForServerSig;
   }
 
@@ -127,6 +129,7 @@ export class ServerUtil<T extends object | string> {
     return hasUserSigned;
   }
 }
+
 
 interface MirrorNodeResponse {
   accounts: Account[];

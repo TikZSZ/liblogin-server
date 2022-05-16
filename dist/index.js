@@ -1,6 +1,11 @@
 import { PrivateKey, PublicKey } from "@hashgraph/sdk";
 import axios from "axios";
+import stringify from "json-stringify-deterministic";
 import { Buffer } from "buffer";
+/**
+ * deterministic version of json.stringify
+ */
+export { stringify };
 export class ServerUtil {
     domainUrl;
     static _instance;
@@ -69,7 +74,7 @@ export class ServerUtil {
         };
     }
     getDeterministicObjBuffer(payload) {
-        let payloadForServerSig = Buffer.from(JSON.stringify(payload));
+        let payloadForServerSig = Buffer.from(stringify(payload));
         return payloadForServerSig;
     }
     /**

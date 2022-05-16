@@ -1,5 +1,10 @@
 import { PrivateKey } from "@hashgraph/sdk";
+import stringify from "json-stringify-deterministic";
 export declare type Network = "mainnet" | "testnet";
+/**
+ * deterministic version of json.stringify
+ */
+export { stringify };
 export interface SignedPayload<T extends object | string = any> {
     serverSignature: string;
     originalPayload: {

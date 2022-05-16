@@ -18,5 +18,15 @@
   "types": "./dist/index.d.ts",
   "files": [
     "dist/"
+  ],
+  "repository": {
+    "url": "https://github.com/TikZSZ/liblogin-server"
+  },
+  "keywords": [
+    "liblogin",
+    "server",
+    "authentication",
+    "hedera",
+    "hashconnect"
   ]
 }
