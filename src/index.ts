@@ -86,12 +86,9 @@ export class ServerUtil<T extends object | string> {
       url: this.domainUrl,
       data: data,
     };
-
     const serverSig = Buffer.from(
       this.privateKey.sign(this.getDeterministicObjBuffer(payload))
     ).toString("base64");
-    console.log({ serverSig });
-
     return {
       payload,
       serverSig,
@@ -99,7 +96,7 @@ export class ServerUtil<T extends object | string> {
   }
 
   private getDeterministicObjBuffer(payload: object) {
-    let payloadForServerSig = Buffer.from(stringify(payload));
+    let payloadForServerSig = Buffer.from(JSON.stringify(payload));
     return payloadForServerSig;
   }
 
@@ -116,8 +113,6 @@ export class ServerUtil<T extends object | string> {
   ) {
     if (!userPubKey || !signedPayload || !userSignature)
       throw new Error("invalid params");
-    console.log(userPubKey, signedPayload, userSignature);
-
     const hasServerSigned = this.publicKey.verify(
       this.getDeterministicObjBuffer(signedPayload.originalPayload),
       Buffer.from(signedPayload.serverSignature, "base64")
